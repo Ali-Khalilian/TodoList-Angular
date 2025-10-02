@@ -1,0 +1,13 @@
+<div class="max-w-[960px] bg-black-dark grid grid-cols-2 items-center gap-20 p-5 rounded-2xl">
+  <div class="relative">
+    <img src="../../assets/images/signup-background.svg" alt="">
+    <img src="../../assets/images/teamwork.svg" alt="" class="absolute top-36">
+  </div>
+
+  @if (!registerMode) {
+      <app-login (createAccount)="RegisterMode($event)"></app-login>
+    }@else {
+      <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+  }
+
+</div>

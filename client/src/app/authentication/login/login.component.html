@@ -1,0 +1,27 @@
+<div class="max-w-80 grid gap-9">
+  <h1 class="text-5xl font-bold text-white">Login</h1>
+  <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off" class="space-y-6 text-white">
+    <div class="relative">
+      <div
+        class="absolute top-1 left-1 bg-white-medium rounded-full p-2 flex items-center justify-center text-blue-300">
+        <i class="fa-solid fa-envelope-open"></i>
+      </div>
+      <input name="username" [(ngModel)]="model.username" type="email" placeholder="username"
+        class="w-80 bg-white-light py-2 px-12 rounded-full focus:bg-black-dark focus:outline-none focus:ring-1 focus:ring-neon-blue focus:drop-shadow-lg">
+    </div>
+    <div class="relative">
+      <div
+        class="absolute top-1 left-1 bg-white-medium rounded-full p-2 flex items-center justify-center text-blue-300">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <input name="password" [(ngModel)]="model.password" type="password" placeholder="password"
+        class="w-80 bg-white-light py-2 px-12 rounded-full focus:bg-black-dark focus:outline-none focus:ring-1 focus:ring-neon-blue focus:drop-shadow-lg">
+    </div>
+    <button type="submit" class="bg-gradient-to-r from-blue-400 to-cyan-200 w-80 font-semibold rounded-full py-2">Sign
+      in</button>
+  </form>
+  <div class="ml-2">
+    <p class="text-white">Do not have an account : <a (click)="GotoRegisterMode()" class="text-neon-blue">Register</a>
+    </p>
+  </div>
+</div>
