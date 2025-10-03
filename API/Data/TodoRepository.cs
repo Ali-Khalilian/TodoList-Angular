@@ -21,11 +21,11 @@ public class TodoRepository(DataContext context) : ITodoRepository
         return await context.Todos.FindAsync(id);
     }
 
-    public async Task<IEnumerable<Todo>> GetTodosByUserIdAsync(int userId)
+    public async Task<IEnumerable<Todo>> GetTodosByUsernameAsync(string username)
     {
         return await context.Todos
-            .Where(t => t.AppUserId == userId)
-            .ToListAsync();
+     .Where(t => t.AppUser.UserName == username)
+     .ToListAsync();
     }
 
     public void UpdateTodo(Todo todo)

@@ -1,5 +1,6 @@
 using API.Entities;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -7,33 +8,18 @@ namespace API.Controllers;
 
 public class TodosController(ITodoRepository todoRepo) : BaseApiController
 {
+
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Todo>>> GetTodos()
     {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+         var username = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        if (string.IsNullOrEmpty(userIdClaim))
-            return Unauthorized("User ID not found");
+        if (string.IsNullOrEmpty(username))
+            return Unauthorized("User not found");
 
-        var userId = int.Parse(userIdClaim);
-        var todos = await todoRepo.GetTodosByUserIdAsync(userId);
+        var todos = await todoRepo.GetTodosByUsernameAsync(username);
+
         return Ok(todos);
-    }
-
-    [HttpPost]
-    public async Task<ActionResult<Todo>> AddTodo(Todo todo)
-    {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        if (string.IsNullOrEmpty(userIdClaim))
-            return Unauthorized("User ID not found");
-
-        var userId = int.Parse(userIdClaim);
-        todo.AppUserId = userId;
-
-        await todoRepo.AddTodoAsync(todo);
-        if (await todoRepo.SaveAllAsync()) return Ok(todo);
-
-        return BadRequest("Failed to add todo");
     }
 }

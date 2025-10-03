@@ -1,0 +1,24 @@
+<!-- todos.length > 0 -->
+@if (true) {
+@for (todo of todos; track todo.id) {
+<div>
+  <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white-medium">
+    <div class="px-6 py-4">
+      <div class="font-bold text-white text-xl mb-2">{{todo.title}}</div>
+      <hr class="my-3">
+      <p class="text-dull-white text-base">
+        {{todo.description}}
+      </p>
+      <div class="mt-5 flex justify-between">
+        <button class="bg-white-light rounded-full p-1 hover:-translate-y-0.5"><i
+            class="fa fa-check text-white"></i></button>
+        <button class="bg-white-light rounded-full p-1 hover:-translate-y-0.5"><i
+            class="fa fa-trash text-white"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+}
+}@else {
+<p class="text-white text-4xl font-bold">No Todo Found !</p>
+}
