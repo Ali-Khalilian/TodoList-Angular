@@ -11,14 +11,23 @@ public class TodoRepository(DataContext context) : ITodoRepository
         await context.Todos.AddAsync(todo);
     }
 
-    public void DeleteTodo(Todo todo)
+    public async Task<Todo?> DeleteTodoAsync(int id)
     {
+        var todo = await context.Todos.FindAsync(id);
+        if (todo == null) return null;
+
+        todo.DeletedAt = DateTime.UtcNow;
         context.Todos.Remove(todo);
+        await context.SaveChangesAsync();
+
+        return todo;
     }
 
     public async Task<Todo?> GetTodoByIdAsync(int id)
     {
-        return await context.Todos.FindAsync(id);
+        return await context.Todos
+        .Include(t => t.AppUser)
+        .FirstOrDefaultAsync(t => t.Id == id);
     }
 
     public async Task<IEnumerable<Todo>> GetTodosByUsernameAsync(string username)
@@ -28,9 +37,29 @@ public class TodoRepository(DataContext context) : ITodoRepository
      .ToListAsync();
     }
 
-    public void UpdateTodo(Todo todo)
+    public async Task<Todo?> UpdateTodoAsync(Todo todo)
     {
-        context.Todos.Update(todo);
+        var existingTodo = await context.Todos.FindAsync(todo.Id);
+        if (existingTodo == null) return null;
+
+        existingTodo.Title = todo.Title;
+        existingTodo.Description = todo.Description;
+        existingTodo.UpdatedAt = DateTime.UtcNow;
+
+        context.Todos.Update(existingTodo);
+
+        return existingTodo;
+    }
+
+    public async Task<Todo?> CompleteTodoAsync(int id)
+    {
+        var todo = await context.Todos.FindAsync(id);
+        if (todo == null) return null;
+
+        todo.Iscompleted = true;
+        todo.UpdatedAt = DateTime.UtcNow;
+
+        return todo;
     }
 
     public async Task<bool> SaveAllAsync()
