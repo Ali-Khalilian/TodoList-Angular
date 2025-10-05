@@ -1,34 +1,37 @@
-<a routerLink="/todos/add">add todo</a>
+<app-nav></app-nav>
+
 @if (todos.length > 0) {
-@for (todo of todos; track todo.id) {
-<div>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white-medium">
-    <div class="px-6 py-4">
-      <div class="font-bold text-white text-xl mb-2">{{todo.title}}</div>
-      <hr class="my-3">
-      <p class="text-dull-white text-base">
-        {{todo.description}}
-      </p>
-      <div class="mt-5 flex justify-between">
-        @if (todo.iscompleted == false) {
-        <button class="bg-white-light rounded-full p-1 hover:-translate-y-0.5" (click)="completeTodo(todo.id)"><i
-            class="fa fa-check text-white"></i></button>
-        <button class="bg-white-light rounded-full p-1 hover:-translate-y-0.5"><i class="fa fa-edit text-white"
-            [routerLink]="['/todos/edit', todo.id]"></i></button>
-        }
-        <button class="bg-white-light rounded-full p-1 hover:-translate-y-0.5" (click)="deleteTodo(todo.id)"><i
-            class="fa fa-trash text-white"></i></button>
-      </div>
-      <div class="mt-5">
-        <span
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{todo.createdAt}}</span>
+<div class="flex gap-4 flex-wrap mt-10">
+  @for (todo of todos; track todo.id) {
+  <div>
+    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white-medium">
+      <div class="px-6 py-4">
+        <div class="font-bold text-white text-xl mb-2">{{todo.title}}</div>
+        <hr class="my-3">
+        <p class="text-dull-white text-base">
+          {{todo.description}}
+        </p>
+        <div class="mt-5 flex justify-between">
+          @if (!todo.iscompleted) {
+          <button class="bg-white-light rounded-full p-1 hover:-translate-y-0.5" (click)="completeTodo(todo.id)"><i
+              class="fa fa-check text-white"></i></button>
+          <button class="bg-white-light rounded-full p-1 hover:-translate-y-0.5"
+            [routerLink]="['/todos/edit', todo.id]"><i class="fa fa-edit text-white"></i></button>
+          }
+          <button class="bg-white-light rounded-full p-1 hover:-translate-y-0.5" (click)="deleteTodo(todo.id)"><i
+              class="fa fa-trash text-white"></i></button>
+        </div>
+        <div class="mt-5">
+          <span
+            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{todo.createdAt}}</span>
+        </div>
       </div>
     </div>
   </div>
+  }
+</div>
+}@else {
+<div class="flex justify-center items-center h-52">
+  <p class="text-white text-4xl font-bold">No Todo Found !</p>
 </div>
 }
-}@else {
-<p class="text-white text-4xl font-bold">No Todo Found !</p>
-}
-
-

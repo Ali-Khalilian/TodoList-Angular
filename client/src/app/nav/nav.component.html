@@ -1,0 +1,22 @@
+<nav class="bg-fuchsia-100 shadow-sm">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-2">
+        <button  (click)="logout()"
+          class="flex items-center gap-3 px-4 py-2 rounded-md bg-red-500 text-white text-sm font-medium hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+        <div class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center">
+          <i class="fa fa-user"></i>
+        </div>
+        <span class="text-sm text-gray-700 font-medium">{{knownAs}}</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex items-center">
+          <a class="bg-green-500 p-4 flex justify-center items-center w-16 rounded-full my-10"
+            routerLink="/todos/add"><i class="fa fa-plus"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

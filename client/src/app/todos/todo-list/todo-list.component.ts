@@ -4,11 +4,12 @@ import { AccountService } from '../../_services/account.service';
 import { TodoService } from '../../_services/todo.service';
 import { ToastrService } from 'ngx-toastr';
 import { RouterLink } from "@angular/router";
+import { NavComponent } from "../../nav/nav.component";
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NavComponent],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
 })
